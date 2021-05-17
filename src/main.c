@@ -1,52 +1,23 @@
 #include "stdio.h"
-#include "stdint.h"
-#include "math.h"
+#include "DSPlib.h"
 
-#define pdsp_sinf(fi) sinf(fi)
-#define PDSP_2PI_DIV_FS ((M_PI * 2.0f) / 8000.0f)
-
-typedef struct
-{
-    float amplitude;
-    float frequency;
-    uint32_t n;
-} OSC_Cfg_t;
-
-OSC_Cfg_t Gen1; // = {50.0f, 100.0f, 0 };
-
-int8_t OSC_GetValue(OSC_Cfg_t *cfg)
-{
-    float y;
-    y = cfg->amplitude * pdsp_sinf(PDSP_2PI_DIV_FS * cfg->frequency * cfg->n);
-    cfg->n++;
-    return (int8_t)y;
-}
-
-void OSC_Init(OSC_Cfg_t *cfg, float A, float f)
-{
-    cfg->amplitude = A;
-    cfg->frequency = f;
-    cfg->n = 0;
-}
-
-void OSC_SetFrequency(OSC_Cfg_t *cfg, float f)
-{
-    cfg->frequency = f;
-}
-
-void OSC_SetAmplitude(OSC_Cfg_t *cfg, float A)
-{
-    cfg->amplitude = A;
-}
+OSC_Cfg_t Gen1;
+OSC_Cfg_t Gen2;
 
 int main(int argc, char const *argv[])
 {
-    // printf("Hello\n");
-    OSC_Init(&Gen1, 100, 1000);
 
-    for (uint32_t i = 0; i < 20; i++)
+    OSC_Init(&Gen1, 100, 1000);
+    OSC_Init(&Gen2, 100, 1000);
+
+    for (uint32_t i = 0; i < 100; i++)
     {
-        printf("%d ", OSC_GetValue(&Gen1));
+        printf("%d, ", OSC_GetValueSin(&Gen1));
+    }
+    printf("\n---------------------------------------\n");
+    for (uint32_t i = 0; i < 100; i++)
+    {
+        printf("%d, ", OSC_GetValueCos(&Gen1));
     }
 
     return 0;
