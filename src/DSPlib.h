@@ -5,6 +5,8 @@
 #include "stdint.h"
 #include "math.h"
 #include "stdio.h"
+#include "time.h"
+#include "stdlib.h"
 
 //Defines
 #define pdsp_sinf(fi) sinf(fi) //sinwave function
@@ -20,19 +22,23 @@
 
 typedef struct
 {
-    uint8_t signal_type;
-    float filling;
     float amplitude;
     float frequency;
+    float filling;
     uint32_t n;
 } OSC_Cfg_t;
 
 //Function defines
 
-int8_t OSC_GetValueSin(OSC_Cfg_t *cfg);
-int8_t OSC_GetValueCos(OSC_Cfg_t *cfg);
-void OSC_Init(OSC_Cfg_t *cfg, float A, float f);
+int32_t OSC_GetValueSin(OSC_Cfg_t *cfg);
+int32_t OSC_GetValueCos(OSC_Cfg_t *cfg);
+uint32_t OSC_GetValueSquare(OSC_Cfg_t *cfg);
+uint32_t OSC_GetValueTriangle(OSC_Cfg_t *cfg);
+int32_t OSC_GetValueRandom(OSC_Cfg_t *cfg);
+int32_t OSC_GetValueGaussNormal(OSC_Cfg_t *cfg);
+void OSC_Init(OSC_Cfg_t *cfg, float A, float f, float fill);
 void OSC_SetFrequency(OSC_Cfg_t *cfg, float f);
 void OSC_SetAmplitude(OSC_Cfg_t *cfg, float A);
+void OSC_SetFilling(OSC_Cfg_t *cfg, float fill);
 
 #endif
