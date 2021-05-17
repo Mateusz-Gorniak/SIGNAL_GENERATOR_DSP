@@ -29,7 +29,6 @@ typedef struct
 } OSC_Cfg_t;
 
 //Function defines
-
 int32_t OSC_GetValueSin(OSC_Cfg_t *cfg);
 int32_t OSC_GetValueCos(OSC_Cfg_t *cfg);
 uint32_t OSC_GetValueSquare(OSC_Cfg_t *cfg);
