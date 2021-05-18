@@ -8,8 +8,8 @@ int main(int argc, char const *argv[])
 {
 
     srand(time(NULL));
-    OSC_Init(&Gen1, 1650, 400, 50);
-    // OSC_Init(&Gen2, 100, 100, 50);
+    OSC_Init(&Gen1, 1650, 1000, 50);
+
     printf("\n---------------------------------------\n");
     for (uint32_t i = 0; i < 100; i++)
     {

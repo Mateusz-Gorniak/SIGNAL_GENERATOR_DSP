@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "dsplib.h": "c"
+        "dsplib.h": "c",
+        "cmath": "c",
+        "cstdlib": "c",
+        "limits": "c"
     }
 }

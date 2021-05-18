@@ -4,21 +4,21 @@
 
 int32_t OSC_GetValueSin(OSC_Cfg_t *cfg)
 {
-    float y;
+
     y = cfg->amplitude * pdsp_sinf(PDSP_2PI_DIV_FS * cfg->frequency * cfg->n);
     cfg->n++;
     return (int32_t)y;
 }
 int32_t OSC_GetValueCos(OSC_Cfg_t *cfg)
 {
-    float y;
+
     y = cfg->amplitude * pdsp_cosf(PDSP_2PI_DIV_FS * cfg->frequency * cfg->n);
     cfg->n++;
     return (int32_t)y;
 }
 uint32_t OSC_GetValueSquare(OSC_Cfg_t *cfg)
 {
-    float y;
+
     float fill = (cfg->filling / 100) * (Fs / cfg->frequency); //wypelnienie na podstawie czestotliwosci sygnalu
     //np 0,5*(8000/400)=10 probek wowczas przypada na stan wysoki
     float pulse_width = (cfg->n % (uint32_t)(Fs / cfg->frequency));
@@ -28,12 +28,19 @@ uint32_t OSC_GetValueSquare(OSC_Cfg_t *cfg)
 }
 uint32_t OSC_GetValueTriangle(OSC_Cfg_t *cfg)
 {
+    float fill = (cfg->filling / 100) * (Fs / cfg->frequency);
+    float pulse_width = (cfg->n % (uint32_t)(Fs / cfg->frequency));
+    uint32_t tr = (uint32_t)cfg->amplitude;
+    // y = pulse_width * abs((cfg->n + (tr - 1)) % ((tr - 1) * 2) - (tr - 1));
+    y = (2 * tr) / M_PI * asin(sin(((2 * M_PI / Fs) * cfg->frequency * cfg->n) / (int)fill));
+    cfg->n++;
+    return (uint32_t)abs(y);
 }
 int32_t OSC_GetValueRandom(OSC_Cfg_t *cfg)
 {
     //srand(time(NULL));
     //zmienne pomocnicze +-amplituda
-    float y;
+
     uint8_t s = 5;
     int32_t max = (uint32_t)cfg->amplitude;
     int32_t min = -(uint32_t)cfg->amplitude;
@@ -45,7 +52,7 @@ int32_t OSC_GetValueRandom(OSC_Cfg_t *cfg)
 int32_t OSC_GetValueGaussNormal(OSC_Cfg_t *cfg)
 {
     //BOX-MULLER implementation
-    float y, mi = 0;
+    float mi = 0;
     double u1, u2, normal;
     float Sigma = (cfg->amplitude) / 3;
 

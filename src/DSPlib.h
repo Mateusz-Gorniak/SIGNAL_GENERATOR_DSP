@@ -20,6 +20,8 @@
 // #define Fs 16000.0f
 #define Fs 8000.0f
 
+float y;
+
 typedef struct
 {
     float amplitude;
